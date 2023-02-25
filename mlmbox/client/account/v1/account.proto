@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package mlmbox.client.account.v1;
+
+import "mlmbox/type/account.proto";
+import "mlmbox/type/confirmation.proto";
+import "mlmbox/type/google_authenticator.proto";
+import "mlmbox/type/locale.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/mlmbox/go-genproto/mlmbox/client/account/v1;service_client_account_pb";
+
+service Account {
+  rpc Info (google.protobuf.Empty) returns (mlmbox.type.Account) {} // display account information
+
+  rpc GoogleAuthenticatorInfo (google.protobuf.Empty) returns (mlmbox.type.GoogleAuthenticator) {} // view 2FA
+  rpc GoogleAuthenticatorGenerate (google.protobuf.Empty) returns (mlmbox.type.GoogleAuthenticator.SecretCode) {} // generate 2FA
+  rpc GoogleAuthenticatorActivate (mlmbox.type.GoogleAuthenticator.VerifiedCode) returns (mlmbox.type.GoogleAuthenticator.VerifiedCode.Status) {} // activate 2FA
+  rpc GoogleAuthenticatorDeactivate (google.protobuf.Empty) returns (mlmbox.type.Confirmation) {} // deactivate 2FA
+  rpc GoogleAuthenticatorUsageSettingsUpdate (mlmbox.type.GoogleAuthenticator.UsageSettings.UpdateRequest) returns (mlmbox.type.Confirmation) {} // update 2FA usage settings
+
+  rpc PasswordSet (AccountPasswordSetRequest) returns (mlmbox.type.Confirmation) {} // change password
+  rpc EmailSet (AccountEmailSetRequest) returns (mlmbox.type.Confirmation) {} // replace the main contact with a new contact
+  rpc LocaleSet (mlmbox.type.Locale.ID) returns (google.protobuf.Empty) {} // update the language of communication
+}
+
+message AccountPasswordSetRequest {
+  string password_new = 1;
+}
+message AccountEmailSetRequest {
+  string email_new = 1;
+}

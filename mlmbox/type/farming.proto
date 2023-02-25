@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package mlmbox.type;
+
+option go_package = "github.com/mlmbox/go-genproto/mlmbox/type/farming;farming_pb";
+
+message Farming {
+  message Contract {
+    message ID {
+      uint32 contract_id = 1;
+    }
+    uint32 contract_id = 1;
+    uint32 package_id = 2;
+    string package_title = 3;
+    string farming_percent = 4; // income percentage
+    string lockup_init_bonus_value = 5; // bonus value
+    string lockup_init_body_value = 6; // body value
+    string lockup_value = 7; // current value of the body
+    string earned_value = 8; // total earned
+    string burned_value = 9; // total burned
+    string closing_fee_percent = 10;
+    string passive_income_per_day_value = 11;
+    uint32 created_at = 12;
+    bool activated = 13;
+    uint32 activated_at = 14;
+    bool closed = 15;
+    uint32 closed_at = 16;
+    bool unlocked = 17;
+    uint32 unlocked_at = 18;
+  }
+  message State {
+    string lockup_init_total_value = 1;
+    string lockup_hold_total_value = 2;
+    string lockup_locked_total_value = 3;
+    string earned_total_value = 4;
+    string burn_total_value = 5;
+    string passive_income_per_day_total_value = 6;
+  }
+  State state = 1;
+  repeated Contract contracts = 2;
+}
