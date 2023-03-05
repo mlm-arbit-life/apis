@@ -2,9 +2,24 @@ syntax = "proto3";
 
 package mlmbox.type;
 
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/type/farming;farming_pb";
+import "mlmbox/type/payment.proto";
+import "mlmbox/type/time_point.proto";
+
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/type/farming;farming_pb";
 
 message Farming {
+  message Package {
+    message ID {
+      uint32 package_id = 1;
+    }
+    uint32 package_id = 1;
+    string package_title = 2;
+    string farming_percent = 3;
+    bool farming_percent_fixed = 4;
+    uint32 farming_duration = 5;
+    mlmbox.type.DurationPoint lockup_duration = 6;
+    mlmbox.type.PaymentPriceRange payment_price_range = 7;
+  }
   message Contract {
     message ID {
       uint32 contract_id = 1;
@@ -12,30 +27,28 @@ message Farming {
     uint32 contract_id = 1;
     uint32 package_id = 2;
     string package_title = 3;
-    string farming_percent = 4; // income percentage
-    string lockup_init_bonus_value = 5; // bonus value
-    string lockup_init_body_value = 6; // body value
-    string lockup_value = 7; // current value of the body
-    string earned_value = 8; // total earned
-    string burned_value = 9; // total burned
-    string closing_fee_percent = 10;
-    string passive_income_per_day_value = 11;
-    uint32 created_at = 12;
-    bool activated = 13;
-    uint32 activated_at = 14;
-    bool closed = 15;
-    uint32 closed_at = 16;
-    bool unlocked = 17;
-    uint32 unlocked_at = 18;
+    string farming_percent = 4; // income percentage value
+    bool farming_percent_fixed = 5; // income percentage value is fixed
+    uint32 farming_duration = 6; // income percentage duration
+    mlmbox.type.DurationPoint lockup_duration = 7;
+    string lockup_init_body_value = 8; // body value
+    string lockup_value = 9; // current value of the body
+    string earned_value = 10; // total earned
+    uint32 created_at = 11;
+    bool activated = 12;
+    uint32 activated_at = 13;
+    bool closed = 14;
+    uint32 closed_at = 15;
+    uint32 next_at = 16;
   }
-  message State {
-    string lockup_init_total_value = 1;
-    string lockup_hold_total_value = 2;
-    string lockup_locked_total_value = 3;
-    string earned_total_value = 4;
-    string burn_total_value = 5;
-    string passive_income_per_day_total_value = 6;
+  message Account {
+    message State {
+      uint32 contracts_quantity_total = 1; // количество приобретенных контрактов за все время
+      uint32 contracts_quantity_activated = 2; // количество активных контрактов
+      string lockup_init_body_total_value = 3; // общая сумма на которую били приобретены пакеты
+      string lockup_total_value = 4; // общая сумма контрактов в активных пакетах
+    }
+    repeated State state = 1;
+    repeated Contract contracts = 2;
   }
-  State state = 1;
-  repeated Contract contracts = 2;
 }

@@ -4,7 +4,7 @@ package mlmbox.bot.processing.v1;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/bot/processing/v1;service_bot_processing_pb";
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/bot/processing/v1;service_bot_processing_pb";
 
 service Processing {
   rpc DepositAddress (stream DepositAddressDone) returns (stream DepositAddressTask) {}

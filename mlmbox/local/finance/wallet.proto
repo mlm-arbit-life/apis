@@ -7,7 +7,7 @@ import "mlmbox/bot/processing/v1/processing.proto";
 import "mlmbox/type/wallet.proto";
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/local/finance;service_local_finance_pb";
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/local/finance;service_local_finance_pb";
 
 service Wallet {
   rpc Info (mlmbox.local.type.Account.ID) returns (InfoResponse) {}
@@ -39,13 +39,6 @@ service Wallet {
   rpc WithdrawalCheck (WithdrawalCheckRequest) returns (WithdrawalCheckResponse) {}
   rpc WithdrawalCreate (WithdrawalCreateRequest) returns (AssetTransactionGetResponse) {}
   rpc WithdrawalEnabledSet (WithdrawalEnabledSetRequest) returns (Error) {}
-
-  rpc PoolGet (PoolGetRequest) returns (PoolGetResponse) {}
-  rpc PoolsAll (mlmbox.local.type.Account.ID) returns (PoolsAllResponse) {}
-  rpc PoolAssetGet (PoolAssetGetRequest) returns (PoolAssetGetResponse) {}
-  rpc PoolAssetsAll (PoolGetRequest) returns (PoolAssetsAllResponse) {}
-  rpc PoolAssetTransactionGet (PoolAssetTransactionGetRequest) returns (AssetTransactionGetResponse) {}
-  rpc PoolAssetTransactionList (PoolAssetTransactionListRequest) returns (AssetTransactionListResponse) {}
 }
 
 message Error {
@@ -174,48 +167,6 @@ message WithdrawalEnabledSetRequest {
   bool enabled = 2;
 }
 
-message PoolGetRequest {
-  uint32 account_id = 1;
-  uint32 pool_id = 2;
-}
-message PoolGetResponse {
-  Error.ID error_id = 1;
-  mlmbox.type.Wallet.Pool pool = 2;
-}
-message PoolsAllResponse {
-  Error.ID error_id = 1;
-  repeated mlmbox.type.Wallet.Pool pools = 2;
-}
-message PoolAssetGetRequest {
-  uint32 account_id = 1;
-  uint32 pool_id = 2;
-  uint32 asset_id = 3;
-  uint32 limit_value = 4;
-  bool is_sort_asc = 5;
-}
-message PoolAssetGetResponse {
-  Error.ID error_id = 1;
-  mlmbox.type.Wallet.Pool.Asset asset = 2;
-}
-message PoolAssetsAllResponse {
-  Error.ID error_id = 1;
-  repeated mlmbox.type.Wallet.Pool.Asset assets = 2;
-}
-message PoolAssetTransactionGetRequest {
-  uint32 account_id = 1;
-  uint32 pool_id = 2;
-  uint32 asset_id = 3;
-  uint32 transaction_id = 4;
-}
-message PoolAssetTransactionListRequest {
-  uint32 account_id = 1;
-  uint32 pool_id = 2;
-  uint32 asset_id = 3;
-  uint32 step_transaction_id = 4;
-  uint32 limit_value = 5;
-  bool is_sort_asc = 6;
-}
-
 message DepositTransaction {
   uint64 block_height = 1;
   repeated mlmbox.bot.processing.v1.BlockUpdateRequest.DepositTransaction transactions = 2;
@@ -224,3 +175,4 @@ message WithdrawalTransaction {
   uint64 block_height = 1;
   repeated mlmbox.bot.processing.v1.BlockUpdateRequest.WithdrawalTransaction transactions = 2;
 }
+//TODO: проверить функциональность

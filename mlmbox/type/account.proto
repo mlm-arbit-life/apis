@@ -1,11 +1,13 @@
 syntax = "proto3";
 
 package mlmbox.type;
+import "mlmbox/type/bonus.proto";
+import "mlmbox/type/career.proto";
 import "mlmbox/type/farming.proto";
 import "mlmbox/type/google_authenticator.proto";
 import "mlmbox/type/relationship.proto";
 
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/type/account;account_pb";
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/type/account;account_pb";
 
 message Account {
   message ID {
@@ -19,10 +21,11 @@ message Account {
     string login = 2;
     string email = 3;
     uint32 referral_id = 4;
-    string referral_login = 5;
-    uint32 current_rank_id = 6;
-    uint32 current_package_id = 7;
-    mlmbox.type.Relationship relationship = 8;
+    uint32 referral_line = 5;
+    string referral_login = 6;
+    mlmbox.type.Career.State career_state = 7;
+    uint32 current_package_id = 8;
+    mlmbox.type.Relationship relationship = 9;
   }
   message FullInfo {
     message AccountsStatistics {
@@ -34,44 +37,31 @@ message Account {
       uint32 quantity = 1;
       Contract total = 2;
       Contract activated = 3;
-      string income_per_day = 4;
     }
-    message LevelAccountsStatistics {
-      message Contract {
-        uint32 quantity = 1;
-        string turnover = 2;
-        uint32 owners_quantity = 3;
-      }
-      uint32 level = 1;
-      uint32 quantity = 2;
-      Contract total = 3;
-      Contract activated = 4;
-      string income_per_day = 5;
+    message TurnoverEvent {
+      uint32 at = 1; // дата в формате YYYYMMDD
+      string turnover = 2;
     }
     uint32 account_id = 1;
     string login = 2;
     string email = 3;
     uint32 referral_id = 4;
-    string referral_login = 5;
-    uint32 current_rank_id = 6;
-    uint32 current_package_id = 7;
-    mlmbox.type.Relationship relationship = 8;
-    AccountsStatistics self_statistics = 9;
-    AccountsStatistics partners_statistics = 10;
-    AccountsStatistics team_statistics = 11;
-    repeated LevelAccountsStatistics levels = 12;
-  }
-  message IncomeForecast {
-    string passive_income_per_day_value = 1;
-    string passive_direct_income_per_day_value = 2;
-    string rank_direct_income_per_day_value = 3;
-    string total_value = 4;
+    uint32 referral_line = 5;
+    string referral_login = 6;
+    mlmbox.type.Career.State career_state = 7;
+    uint32 current_package_id = 8;
+    mlmbox.type.Relationship relationship = 9;
+    AccountsStatistics self_statistics = 10;
+    AccountsStatistics partners_statistics = 11;
+    AccountsStatistics team_statistics = 12;
+    repeated TurnoverEvent team_turnover_events = 13;
   }
 
   FullInfo info = 1;
   mlmbox.type.GoogleAuthenticator google_authenticator = 2;
   string locale = 3; // language identifier (en-US, ...)
-  IncomeForecast income_forecast = 4;
-  mlmbox.type.Farming.State farming_state = 5;
-//  TODO: добавить статистику по заработку в бонусах
+  mlmbox.type.Farming.Account farming_state = 4;
+  repeated mlmbox.type.IncomeBonus income_bonuses = 5;
+  string notification_id = 6;
+  bool notification_activated = 7;
 }

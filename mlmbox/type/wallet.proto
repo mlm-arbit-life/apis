@@ -1,9 +1,10 @@
 syntax = "proto3";
 
 package mlmbox.type;
-import "mlmbox/type/time_point.proto";
 
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/type/wallet;wallet_pb";
+import "mlmbox/type/bonus.proto";
+
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/type/wallet;wallet_pb";
 
 message Wallet {
   message Asset {
@@ -17,7 +18,7 @@ message Wallet {
           UNKNOWN = 0;
           CANCELED = 1;
           EARNED = 2; // заработано
-          SPENT_PLAN_FARMING = 3; // потрачено
+          SPENT = 3; // потрачено
           DEPOSIT = 4; // пополнение
           WITHDRAWAL = 5; // вывод
           DEPOSIT_WALLET_TRANSFER = 6; // перевод между кошельками (получение)
@@ -25,6 +26,7 @@ message Wallet {
           EXCHANGE = 8; // обмен валюты
           POOL_DEPOSIT = 9; // пополнение из pool
           POOL_WITHDRAWAL = 10; // вывод от pool
+          CONTRACT_UNLOCKED = 11; // вывод от pool
         }
         ID kind_id = 1;
       }
@@ -60,6 +62,7 @@ message Wallet {
     uint32 asset_id = 1;
     string asset_balance = 2;
     repeated Transaction transactions = 3;
+    mlmbox.type.IncomeBonus income_bonus = 4;
   }
 
   message Processing {
@@ -83,4 +86,3 @@ message Wallet {
   repeated Asset assets = 1;
   repeated Processing processings = 2;
 }
-

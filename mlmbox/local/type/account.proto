@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package mlmbox.local.type;
-option go_package = "github.com/mlmbox/go-genproto/mlmbox/local/type/account;local_account_pb";
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/local/type/account;local_account_pb";
 
 message Account {
   message ID {
@@ -15,9 +15,12 @@ message Account {
   }
   message SignState {
     uint32 account_id = 1;
-    bool baned = 2;
-    string login = 3;
-    string email = 4;
+    string login = 2;
+    string email = 3;
+    bool baned = 4;
     string password_hash_confirmed = 5;
+    string locale = 6;
+    string notification_id = 7;
+    bool notification_activated = 8;
   }
 }

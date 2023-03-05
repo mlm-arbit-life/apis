@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package mlmbox.type;
+
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/type/career;career_pb";
+
+message Career {
+  message Rank {
+    message ID {
+      uint32 rank_id = 1;
+    }
+    message Process {
+      uint32 rank_id = 1; // достигаемый ранг
+      string achievement_team_turnover = 2; // достигнутый товарооборот
+      uint32 achievement_partners_rank_quantity = 3; // достигнутое значение количество лично приглашенных с необходимым рангом
+    }
+    uint32 rank_id = 1; // идентификатор ранга
+    string rank_title = 2; // название ранга
+    string team_turnover = 3; // необходимый командный товарооборот (с учетом что в одной ноге не должно быть более 50% от текущего товарооборота)
+    string bonus = 4; // бонус при достижении ранга
+    string bonus_infinity_percent = 5; // процент infinity бонуса который получает пользователь при достижении данного ранга
+    uint32 condition_partners_rank_id = 6; // дополнительное условие обозначающее необходимое достижение ранга среди лично приглашенных пользователя
+    uint32 condition_partners_rank_quantity = 7; // дополнительное условие обозначающее количество лично приглашенных пользователя достигшие указанный ранг
+  }
+  message State {
+    uint32 current_rank_id = 1;
+    Rank.Process next_rank_process = 2;
+  }
+  uint32 current_rank_id = 1;
+  Rank.Process next_rank_process = 2;
+  repeated Rank ranks = 3;
+}
