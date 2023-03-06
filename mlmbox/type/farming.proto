@@ -48,7 +48,7 @@ message Farming {
       string lockup_init_body_total_value = 3; // общая сумма на которую били приобретены пакеты
       string lockup_total_value = 4; // общая сумма контрактов в активных пакетах
     }
-    repeated State state = 1;
+    State state = 1;
     repeated Contract contracts = 2;
   }
 }
