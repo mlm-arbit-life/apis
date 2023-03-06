@@ -9,18 +9,21 @@ message Career {
     message ID {
       uint32 rank_id = 1;
     }
+    message ConditionPartnersRank {
+      uint32 rank_id = 1; // условие обозначающее необходимое достижение ранга среди лично приглашенных пользователя
+      uint32 quantity = 2; // условие обозначающее количество лично приглашенных пользователя достигшие указанный ранг
+    }
     message Process {
       uint32 rank_id = 1; // достигаемый ранг
       string achievement_team_turnover = 2; // достигнутый товарооборот
-      uint32 achievement_partners_rank_quantity = 3; // достигнутое значение количество лично приглашенных с необходимым рангом
+      repeated ConditionPartnersRank achievement_partners_ranks = 3; // достигнутое значение количество лично приглашенных с необходимым рангом
     }
     uint32 rank_id = 1; // идентификатор ранга
     string rank_title = 2; // название ранга
     string team_turnover = 3; // необходимый командный товарооборот (с учетом что в одной ноге не должно быть более 50% от текущего товарооборота)
     string bonus = 4; // бонус при достижении ранга
     string bonus_infinity_percent = 5; // процент infinity бонуса который получает пользователь при достижении данного ранга
-    uint32 condition_partners_rank_id = 6; // дополнительное условие обозначающее необходимое достижение ранга среди лично приглашенных пользователя
-    uint32 condition_partners_rank_quantity = 7; // дополнительное условие обозначающее количество лично приглашенных пользователя достигшие указанный ранг
+    repeated ConditionPartnersRank condition_partners_ranks = 6; // дополнительное условие обозначающее необходимое достижение ранга и их количества среди лично приглашенных пользователя
   }
   message State {
     uint32 current_rank_id = 1;
