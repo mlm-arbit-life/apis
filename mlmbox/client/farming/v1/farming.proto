@@ -14,7 +14,6 @@ service Farming {
 
   rpc Info (google.protobuf.Empty) returns (mlmbox.type.Farming.Account) {} // display data about all contracts
   rpc ContractGet (mlmbox.type.Farming.Contract.ID) returns (mlmbox.type.Farming.Contract) {} // display data about the selected contract
-  rpc ContractDeactivate (mlmbox.type.Farming.Contract.ID) returns (mlmbox.type.Farming.Contract) {} // deactivate selected contract
 }
 
 message PackageBuyRequest {
