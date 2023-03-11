@@ -64,4 +64,5 @@ message Account {
   repeated mlmbox.type.IncomeBonus income_bonuses = 5;
   string notification_id = 6;
   bool notification_activated = 7;
+  bool is_admin = 8;
 }

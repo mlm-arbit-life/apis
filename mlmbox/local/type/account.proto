@@ -22,5 +22,6 @@ message Account {
     string locale = 6;
     string notification_id = 7;
     bool notification_activated = 8;
+    bool is_admin = 9;
   }
 }

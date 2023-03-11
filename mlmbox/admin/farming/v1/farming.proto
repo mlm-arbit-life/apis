@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package mlmbox.admin.farming.v1;
+
+import "mlmbox/type/farming.proto";
+
+option go_package = "github.com/mlm-arbit-life/go-genproto/mlmbox/admin/farming/v1;service_admin_farming_pb";
+
+service Farming {
+  rpc PackageBonusGet (mlmbox.type.Farming.Package.ID) returns (PackageBonusResponse) {}
+  rpc PackageBonusSet (PackageBonusSetRequest) returns (PackageBonusResponse) {}
+}
+
+message PackageBonusSetRequest {
+  uint32 package_id = 1;
+  string farming_percent = 2;
+}
+message PackageBonusResponse {
+  string farming_percent = 1;
+}
